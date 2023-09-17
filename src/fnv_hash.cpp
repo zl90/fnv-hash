@@ -1,15 +1,13 @@
 // https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
 
 #include <string>
-#include <iostream>
+#include "fnv_hash.h"
 #include "test_utils.h"
-
-using namespace std;
 
 #define FNV_OFFSET_BASIS 14695981039346656037
 #define FNV_PRIME 1099511628211
 
-unsigned long long fnvHash(string data)
+unsigned long long fnvHash(std::string data)
 {
     unsigned long long hash = FNV_OFFSET_BASIS;
 
