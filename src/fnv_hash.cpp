@@ -2,33 +2,33 @@
 
 #include <string>
 #include "fnv_hash.h"
-#include "test_utils.h"
+#define FNV_OFFSET_BASIS_64 14695981039346656037
+#define FNV_OFFSET_BASIS_32 2166136261
+#define FNV_PRIME_64 1099511628211
+#define FNV_PRIME_32 16777619
 
-#define FNV_OFFSET_BASIS 14695981039346656037
-#define FNV_PRIME 1099511628211
-
-unsigned long long fnvHash(std::string data)
+unsigned long long fnv1_64(std::string data)
 {
-    unsigned long long hash = FNV_OFFSET_BASIS;
+    unsigned long long hash = FNV_OFFSET_BASIS_64;
 
     for (int i : data)
     {
-        hash = hash * FNV_PRIME;
+        hash = hash * FNV_PRIME_64;
         hash = hash ^ i;
     }
 
     return hash;
 }
 
-void runTests()
+unsigned int fnv1_32(std::string data)
 {
-    expect("test1", fnvHash("hello"), 8883723591023973575);
-    expect("test2", fnvHash("world"), 4521841679625769999);
-}
+    unsigned int hash = FNV_OFFSET_BASIS_32;
 
-int main()
-{
-    runTests();
+    for (int i : data)
+    {
+        hash = hash * FNV_PRIME_32;
+        hash = hash ^ i;
+    }
 
-    return 0;
+    return hash;
 }
